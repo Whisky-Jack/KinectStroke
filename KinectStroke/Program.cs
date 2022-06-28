@@ -1,14 +1,21 @@
-﻿using System;
+using System;
 
-namespace KinectStroke
+namespace MeepEngine
 {
-    public static class Program
+#if WINDOWS || XBOX
+    static class Program
     {
-        [STAThread]
-        static void Main()
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        static void Main(string[] args)
         {
-            using (var game = new Game1())
+            using (Main game = new Main())
+            {
                 game.Run();
+            }
         }
     }
+#endif
 }
+
