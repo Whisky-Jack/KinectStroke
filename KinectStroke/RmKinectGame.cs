@@ -27,7 +27,7 @@ namespace MeepEngine
 
         public override void Update(GameTime gameTime)
         {
-            if (Main.KeyCheckPressed(Keys.Back))
+            if (Main.KeyCheckPressed(Keys.Escape))
             {
                 manager.WriteSummary();
                 manager.FinishWritingData();

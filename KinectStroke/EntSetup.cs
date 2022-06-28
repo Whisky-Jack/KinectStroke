@@ -37,7 +37,7 @@ namespace MeepEngine
         public static int handType = 0;
         public static int difficulty = 0;
         public static bool showScore = true;
-        public static string dataDirectory = @"J:\\Experiments_Funded\\WMI_Learning_2014\\Stroke_Data\\Behavioural Data";
+        public static string dataDirectory = @"C:\Experiments\KinectStrokeData";
         public static bool freePlay = false;
 
         // Difficulty strings
