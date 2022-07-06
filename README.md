@@ -3,14 +3,16 @@
 Code files for kinect stroke game, updated to run with [monogame](https://docs.monogame.net/) rather than XNA. The old version of KinectStroke can be found [here](https://github.com/Whisky-Jack/KinectStroke3.0).
 
 ## Table of Contents
-1. [Downloading/Installing the Files](#downloading)
+1. [Installing/Distributing the Files](#downloading)
 2. [Running the Application](#running)
 3. [Using KinectStroke](#using)
 3. [Modifying the Code](#modifying)
 
-## Downloading/Installing the Files <a name="downloading"></a>
+## Installing/Distributing the Files <a name="downloading"></a>
 
 The repository can be cloned by following the standard git instructions and the green code button on the top left. If you are unfamiliar with/confused by git, see [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+
+It's also possible to distribute the game by copying the contents of the "/publish" folder. This is a package containing a self-contained set of files that should contain everything needed to run the game on a new computer.
 
 ## Running the Application <a name="running"></a>
 
