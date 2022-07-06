@@ -1,4 +1,4 @@
-# KinectStroke
+# KinectStroke <img src="KinectStroke/Icon.ico" height="48">
 
 Code files for kinect stroke game, updated to run with [monogame](https://docs.monogame.net/) rather than XNA. The old version of KinectStroke can be found [here](https://github.com/Whisky-Jack/KinectStroke3.0).
 
