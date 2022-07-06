@@ -14,13 +14,19 @@ The repository can be cloned by following the standard git instructions and the 
 
 ## Running the Application <a name="running"></a>
 
-To run the game on Windows 10 navigate to folder containing the the KinectStroke application, and run it.
+To run the game on Windows 10 navigate to the folder containing the the KinectStroke application, and run it.
 
 ## Using KinectStroke <a name="using"></a>
 
-1. Calibration
-2. Setup
-3. Gameplay
+A quick rundown of the options in the main menu and their significance:
+
+1. Calibration - Calibration is used to calibrate the sensitivity of the gameplay to the range of motion of the player.
+    1. Align the player's tracked hand with the upper right, bottom right, top left, and bottom left points, and press W, S, A and Q respectively to identify these points as the limits of their range of motion. When done press Escape to exit.
+2. Setup - Used to set parameters such as gameplay difficulty.
+    1. Directory - Sets the location to store the gameplay data.
+    2. Difficulty - 
+3. Gameplay - 
+4. Data - The data can be found under the directory specified in the setup.
 
 ## Modifying the Code <a name="modifying"></a>
 
