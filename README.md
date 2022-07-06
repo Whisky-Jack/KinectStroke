@@ -14,6 +14,8 @@ The repository can be cloned by following the standard git instructions and the 
 
 It's also possible to distribute the game by copying the contents of the "/publish" folder. This is a package containing a self-contained set of files that should contain everything needed to run the game on a new computer.
 
+To run the application, the [Kinect for Windows Runtime v1.8](https://www.microsoft.com/en-ca/download/details.aspx?id=40277) must be installed to provide the drivers for the kinect (this is also provided in the [Kinect for Windows SDK v1.8](https://www.microsoft.com/en-ca/download/details.aspx?id=40278)).
+
 ## Running the Application <a name="running"></a>
 
 To run the game on Windows 10 navigate to the folder containing the the KinectStroke application, and run it.
@@ -33,3 +35,5 @@ A quick rundown of the options in the main menu and their significance:
 ## Modifying the Code <a name="modifying"></a>
 
 The game was ported to [monogame](https://docs.monogame.net/) from XNA by following several guides such as that found [here](http://www.knoxgamedesign.org/wp-content/uploads/2020/09/XnaToMonogame.pdf). To work with the code, open the project solution in a version of [Visual Studio](https://visualstudio.microsoft.com/downloads/).
+
+To work with the code in Visual Studio, the [Kinect for Windows SDK v1.8](https://www.microsoft.com/en-ca/download/details.aspx?id=40278) must be installed.
