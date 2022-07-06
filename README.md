@@ -25,9 +25,9 @@ A quick rundown of the options in the main menu and their significance:
 2. Setup - Used to set parameters such as gameplay difficulty.
     1. Directory - Sets the location to store the gameplay data.
     2. Difficulty - 
-3. Gameplay - 
-4. Data - The data can be found under the directory specified in the setup.
+3. Gameplay - To play the game, catch the asteroids by guiding the rocket onto them, and then throw them into the sun. Each success earns points, and the difficulty increases with time. To end the game press Escape.
+4. Data - Various game parameters are stored as csvs, which can be found under the directory specified in the setup.
 
 ## Modifying the Code <a name="modifying"></a>
 
-The game was ported to [monogame](https://docs.monogame.net/) from XNA by following several guides such as that found [here](http://www.knoxgamedesign.org/wp-content/uploads/2020/09/XnaToMonogame.pdf). To work with the code, open the project solution in a version of Visual Studio.
+The game was ported to [monogame](https://docs.monogame.net/) from XNA by following several guides such as that found [here](http://www.knoxgamedesign.org/wp-content/uploads/2020/09/XnaToMonogame.pdf). To work with the code, open the project solution in a version of [Visual Studio](https://visualstudio.microsoft.com/downloads/).
