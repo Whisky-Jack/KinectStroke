@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Kinect;
+using Microsoft.Azure.Kinect.Sensor;
 
 namespace MeepEngine
 {
@@ -29,14 +29,17 @@ namespace MeepEngine
         }
 
         // Kinect sensor
+        /*
         public static KinectSensor kinect;
 
         // Hand details
         public static JointType handType = JointType.HandRight;
         public static Vector2 handPos = new Vector2();
+        */
 
         static bool InitializeKinect()
         {
+            /*
             // Color stream
             kinect.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinect.ColorFrameReady += new EventHandler<ColorImageFrameReadyEventArgs>(kinect_ColorFrameReady);
@@ -63,10 +66,12 @@ namespace MeepEngine
             }
 
             return true;
+            */
         }
 
         public static void FindKinect()
         {
+            /*
             // Try to find sensor
             foreach (KinectSensor sensor in KinectSensor.KinectSensors)
             {
@@ -88,10 +93,12 @@ namespace MeepEngine
             {
                 InitializeKinect();
             }
+            */
         }
 
         static void kinect_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
         {
+            /*
             using (ColorImageFrame colorImageFrame = e.OpenColorImageFrame())
             {
                 if (colorImageFrame != null)
@@ -117,10 +124,12 @@ namespace MeepEngine
                     Assets.kinectRGBVideo.SetData(color);
                 }
             }
+            */
         }
 
         static void kinect_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
+            /*
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
             {
                 if (skeletonFrame != null)
@@ -139,6 +148,7 @@ namespace MeepEngine
                     }
                 }
             }
+            */
         }
     }
 }
