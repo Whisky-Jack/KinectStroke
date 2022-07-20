@@ -80,11 +80,12 @@ namespace MeepEngine
         }
 
         public static void UpdateKinect()
+            //TODO: uncomment and fix
         {
-            if (handType == 0)
-                EntKinect.handType = Microsoft.Kinect.JointType.HandRight;
-            else
-                EntKinect.handType = Microsoft.Kinect.JointType.HandLeft;
+            //if (handType == 0)
+                // EntKinect.handType = Microsoft.Kinect.JointType.HandRight;
+            //else
+                //EntKinect.handType = Microsoft.Kinect.JointType.HandLeft;
         }
 
         public static string GetDirectoryAboveProject(int levels)

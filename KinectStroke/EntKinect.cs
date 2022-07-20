@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Azure.Kinect.Sensor;
+using Microsoft.Azure.Kinect.BodyTracking;
 
 namespace MeepEngine
 {
@@ -29,6 +30,14 @@ namespace MeepEngine
         }
 
         // Kinect sensor
+        public static Device kinect;
+        public static Tracker bodytracker;
+
+        public static JointId handType = JointId.HandRight;
+        public static Vector2 handPos = new Vector2();
+
+
+
         /*
         public static KinectSensor kinect;
 
@@ -37,9 +46,10 @@ namespace MeepEngine
         public static Vector2 handPos = new Vector2();
         */
 
+        /*
         static bool InitializeKinect()
         {
-            /*
+            
             // Color stream
             kinect.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinect.ColorFrameReady += new EventHandler<ColorImageFrameReadyEventArgs>(kinect_ColorFrameReady);
@@ -66,11 +76,27 @@ namespace MeepEngine
             }
 
             return true;
-            */
+            
         }
+        */
 
         public static void FindKinect()
         {
+            // Find and initialize kinect
+            // int count = Device.GetInstalledCount();
+            kinect = Device.Open();
+
+            // Initialize if connected
+            kinect.StartCameras(new DeviceConfiguration()
+            {
+                CameraFPS = FPS.FPS30,
+                ColorResolution = ColorResolution.Off,
+                DepthMode = DepthMode.NFOV_Unbinned,
+                WiredSyncMode = WiredSyncMode.Standalone,
+            });
+
+            // InitializeKinect();
+
             /*
             // Try to find sensor
             foreach (KinectSensor sensor in KinectSensor.KinectSensors)
@@ -96,9 +122,12 @@ namespace MeepEngine
             */
         }
 
+        /*
         static void kinect_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
         {
-            /*
+            kinect.GetCapture();
+
+            
             using (ColorImageFrame colorImageFrame = e.OpenColorImageFrame())
             {
                 if (colorImageFrame != null)
@@ -124,12 +153,14 @@ namespace MeepEngine
                     Assets.kinectRGBVideo.SetData(color);
                 }
             }
-            */
+            
         }
+        */
 
+        /*
         static void kinect_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
-            /*
+            
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
             {
                 if (skeletonFrame != null)
@@ -148,7 +179,8 @@ namespace MeepEngine
                     }
                 }
             }
-            */
+            
         }
+        */
     }
 }
