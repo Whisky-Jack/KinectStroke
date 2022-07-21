@@ -80,7 +80,10 @@ namespace MeepEngine
             sndMusic = Content.Load<Song>(@"Sounds\Music");
 
             // Kinect video stream
-            kinectRGBVideo = new Texture2D(Main.graphics.GraphicsDevice, 640, 480);
+            // kinectRGBVideo = new Texture2D(Main.graphics.GraphicsDevice, 640, 480);
+
+            // TODO: assumes kinect 720p resolution
+            kinectRGBVideo = new Texture2D(Main.graphics.GraphicsDevice, 1280, 720);
         }
     }
 }

@@ -92,7 +92,7 @@ namespace MeepEngine
                         colorFrame.Memory.CopyTo(pixels);
 
                         Color[] color = new Color[colorFrame.HeightPixels * colorFrame.WidthPixels];
-                        Assets.kinectRGBVideo = new Texture2D(Main.graphics.GraphicsDevice, colorFrame.WidthPixels, colorFrame.HeightPixels);
+                        // Assets.kinectRGBVideo = new Texture2D(Main.graphics.GraphicsDevice, colorFrame.WidthPixels, colorFrame.HeightPixels);
 
                         int index = 0;
                         for (int y = 0; y < colorFrame.HeightPixels; y++)

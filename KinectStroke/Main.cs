@@ -99,7 +99,6 @@ namespace MeepEngine
 
             // TODO: update kinect here?
             // EntKinect.UpdateFrame();
-            EntKinect.AsyncUpdateKinect();
 
             // Create queued instances
             for (int i = 0; i < instanceCreationQueue.Count; i++)
@@ -110,6 +109,7 @@ namespace MeepEngine
             instanceCreationQueue.Clear();
 
             // Update active room
+            EntKinect.AsyncUpdateKinect();
             activeRoom.Update(gameTime);
 
             // Remove queued instances
