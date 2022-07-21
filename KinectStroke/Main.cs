@@ -60,7 +60,7 @@ namespace MeepEngine
             IsMouseVisible = true;
 
             // Setup Kinect
-            EntKinect.FindKinect();
+            EntKinect.InitializeKinect();
 
             Content.RootDirectory = "Content";
         }
@@ -96,7 +96,11 @@ namespace MeepEngine
         {
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
-            
+
+            // TODO: update kinect here?
+            // EntKinect.UpdateFrame();
+            EntKinect.AsyncUpdateKinect();
+
             // Create queued instances
             for (int i = 0; i < instanceCreationQueue.Count; i++)
             {
@@ -126,6 +130,7 @@ namespace MeepEngine
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
+            // TODO:
             GraphicsDevice.Clear(activeRoom.bgColor);
 
             // Draw active room

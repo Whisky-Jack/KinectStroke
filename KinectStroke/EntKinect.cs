@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.BodyTracking;
+// using Microsoft.Kinect;
 
 namespace MeepEngine
 {
@@ -36,51 +37,8 @@ namespace MeepEngine
         public static JointId handType = JointId.HandRight;
         public static Vector2 handPos = new Vector2();
 
-
-
-        /*
-        public static KinectSensor kinect;
-
-        // Hand details
-        public static JointType handType = JointType.HandRight;
-        public static Vector2 handPos = new Vector2();
-        */
-
-        /*
-        static bool InitializeKinect()
-        {
-            
-            // Color stream
-            kinect.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
-            kinect.ColorFrameReady += new EventHandler<ColorImageFrameReadyEventArgs>(kinect_ColorFrameReady);
-
-            // Skeleton stream
-            kinect.SkeletonStream.Enable(new TransformSmoothParameters()
-            {
-                Smoothing = 0.5f,
-                Correction = 0.5f,
-                Prediction = 0.5f,
-                JitterRadius = 0.05f,
-                MaxDeviationRadius = 0.04f
-            });
-
-            kinect.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(kinect_SkeletonFrameReady);
-
-            try
-            {
-                kinect.Start();
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-            
-        }
-        */
-
-        public static void FindKinect()
+        
+        public static void InitializeKinect()
         {
             // Find and initialize kinect
             // int count = Device.GetInstalledCount();
@@ -90,97 +48,85 @@ namespace MeepEngine
             kinect.StartCameras(new DeviceConfiguration()
             {
                 CameraFPS = FPS.FPS30,
-                ColorResolution = ColorResolution.Off,
+                ColorFormat = ImageFormat.ColorBGRA32,
+                ColorResolution = ColorResolution.R720p,
                 DepthMode = DepthMode.NFOV_Unbinned,
                 WiredSyncMode = WiredSyncMode.Standalone,
+                SynchronizedImagesOnly = true
             });
 
-            // InitializeKinect();
-
-            /*
-            // Try to find sensor
-            foreach (KinectSensor sensor in KinectSensor.KinectSensors)
+            // Initialize bodytracking
+            bodytracker = Tracker.Create(kinect.GetCalibration(), new TrackerConfiguration()
             {
-                if (sensor.Status == KinectStatus.Connected)
-                {
-                    kinect = sensor;
-                    break;
-                }
-            }
-
-            // Return if no sensor found
-            if (kinect == null)
-            {
-                return;
-            }
-
-            // Initialize if connected
-            if (kinect.Status == KinectStatus.Connected)
-            {
-                InitializeKinect();
-            }
-            */
+                ProcessingMode = TrackerProcessingMode.Gpu,
+                SensorOrientation = SensorOrientation.Default
+            });
         }
 
-        /*
-        static void kinect_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
+        public static async void AsyncUpdateKinect()
         {
-            kinect.GetCapture();
+            AsyncUpdateFrame();
+            AsyncUpdateTracker();
+        }
 
-            
-            using (ColorImageFrame colorImageFrame = e.OpenColorImageFrame())
+        protected static async void AsyncUpdateFrame()
+        {
+            using (Capture sensorCapture = await System.Threading.Tasks.Task.Run(() => { return kinect.GetCapture(); }))
             {
-                if (colorImageFrame != null)
+                if (sensorCapture != null)
                 {
+                    var colorFrame = sensorCapture.Color;
 
-                    byte[] pixelsFromFrame = new byte[colorImageFrame.PixelDataLength];
-
-                    colorImageFrame.CopyPixelDataTo(pixelsFromFrame);
-
-                    Color[] color = new Color[colorImageFrame.Height * colorImageFrame.Width];
-                    Assets.kinectRGBVideo = new Texture2D(Main.graphics.GraphicsDevice, colorImageFrame.Width, colorImageFrame.Height);
-
-                    int index = 0;
-                    for (int y = 0; y < colorImageFrame.Height; y++)
+                    if (colorFrame != null)
                     {
-                        for (int x = 0; x < colorImageFrame.Width; x++, index += 4)
+                        try
                         {
-                            color[y * colorImageFrame.Width + x] = new Color(pixelsFromFrame[index + 2], pixelsFromFrame[index + 1], pixelsFromFrame[index + 0]);
+                            bodytracker.EnqueueCapture(sensorCapture, System.TimeSpan.Zero);
                         }
-                    }
+                        catch
+                        {
 
-                    // Set pixeldata from the ColorImageFrame to a Texture2D
-                    Assets.kinectRGBVideo.SetData(color);
+                        }
+
+                        byte[] pixels = new byte[colorFrame.StrideBytes * colorFrame.HeightPixels];
+                        colorFrame.Memory.CopyTo(pixels);
+
+                        Color[] color = new Color[colorFrame.HeightPixels * colorFrame.WidthPixels];
+                        Assets.kinectRGBVideo = new Texture2D(Main.graphics.GraphicsDevice, colorFrame.WidthPixels, colorFrame.HeightPixels);
+
+                        int index = 0;
+                        for (int y = 0; y < colorFrame.HeightPixels; y++)
+                        {
+                            for (int x = 0; x < colorFrame.WidthPixels; x++, index += 4)
+                            {
+                                color[y * colorFrame.WidthPixels + x] = new Color(pixels[index + 2], pixels[index + 1], pixels[index + 0]);
+                            }
+                        }
+
+                        Assets.kinectRGBVideo.SetData(color);
+                    }
                 }
             }
-            
         }
-        */
 
-        /*
-        static void kinect_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        protected static async void AsyncUpdateTracker()
         {
-            
-            using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+            using (Frame frame = bodytracker.PopResult(System.TimeSpan.Zero, throwOnTimeout: false))
             {
-                if (skeletonFrame != null)
+                if (frame != null)
                 {
-                    Skeleton[] skeletonData = new Skeleton[skeletonFrame.SkeletonArrayLength];
-                    skeletonFrame.CopySkeletonDataTo(skeletonData);
-
-                    Skeleton playerSkeleton = (from s in skeletonData where s.TrackingState == SkeletonTrackingState.Tracked select s).FirstOrDefault();
-                    
-                    if (playerSkeleton != null)
+                    try
                     {
-                        Joint hand = playerSkeleton.Joints[handType];
-                        handPos = new Vector2(((hand.Position.X + 1) / 2) * Main.roomWidth, ((-hand.Position.Y + 1) / 2) * Main.roomHeight);
-
-                        //new Vector2(((playerSkeleton.Joints[JointType.HipCenter].Position.X + 1) / 2) * Main.roomWidth, ((-playerSkeleton.Joints[JointType.HipCenter].Position.Y + 1) / 2) * Main.roomHeight + 64);
+                        Skeleton skeleton = frame.GetBodySkeleton(0);
+                        var hand = skeleton.GetJoint(JointId.HandRight);
+                        handPos = new Vector2(((hand.Position.X + 1) / 2) * Main.roomWidth, ((-hand.Position.Y + 1) / 2) * Main.roomWidth);
+                    }
+                    catch
+                    {
+                        return;
                     }
                 }
             }
-            
         }
-        */
     }
 }

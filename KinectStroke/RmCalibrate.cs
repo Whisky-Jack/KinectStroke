@@ -29,6 +29,8 @@ namespace MeepEngine
 
         public override void Update(GameTime gameTime)
         {
+            //EntKinect.AsyncUpdateKinect();
+
             if (Main.KeyCheckPressed(Keys.Escape))
                 Main.RoomGoto(Main.rmMenu);
 
@@ -62,10 +64,13 @@ namespace MeepEngine
 
         public override void Draw(GameTime gameTime)
         {
+
             Main.DrawText("Calibration", new Vector2(Main.roomWidth / 2 - Assets.menu.MeasureString("Calibration").X / 2, 32), Color.White, Assets.menu);
             Main.DrawText("Velocity:  " + Math.Floor(cursor.curVel.Length()).ToString(), new Vector2(48, 96), Color.White, Assets.menu);
             Main.DrawText("Threshold:  < " + EntAsteroid.throwVel.ToString() + " >", new Vector2(48, 96 + 40), Color.White, Assets.menu);
 
+            // TODO: kinect video stream
+            // EntKinect.AsyncUpdateKinect();
             Main.DrawSprite(Assets.kinectRGBVideo, new Vector2(Main.roomWidth/2,Main.roomHeight/2), 0f, 1f, 1f, 0.5f);
 
             Main.DrawSprite(Assets.plusWhite, EntScaledKinect.nw, 0f, 0.5f, 0f, 1f);
@@ -78,6 +83,7 @@ namespace MeepEngine
             Main.DrawText("A", EntScaledKinect.sw, Color.White, Assets.menu);
             Main.DrawText("S", EntScaledKinect.se, Color.White, Assets.menu);
 
+            // TODO: clean up
             Main.DrawSprite(Assets.circleWhite, EntKinect.handPos, 0f, 1f, 0f, 1f);
 
             base.Draw(gameTime);
