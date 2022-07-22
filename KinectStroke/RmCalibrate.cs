@@ -71,7 +71,7 @@ namespace MeepEngine
 
             // TODO: kinect video stream
             // EntKinect.AsyncUpdateKinect();
-            Main.DrawSprite(Assets.kinectRGBVideo, new Vector2(Main.roomWidth/2,Main.roomHeight/2), 0f, 1f, 1f, 0.5f);
+            Main.DrawSprite(Assets.kinectRGBVideo, new Vector2(Main.roomWidth/2,Main.roomHeight/2), 0f, Main.scale, 1f, 0.5f);
 
             Main.DrawSprite(Assets.plusWhite, EntScaledKinect.nw, 0f, 0.5f, 0f, 1f);
             Main.DrawSprite(Assets.plusWhite, EntScaledKinect.ne, 0f, 0.5f, 0f, 1f);
@@ -84,7 +84,7 @@ namespace MeepEngine
             Main.DrawText("S", EntScaledKinect.se, Color.White, Assets.menu);
 
             // TODO: clean up
-            Main.DrawSprite(Assets.circleWhite, EntKinect.handPos, 0f, 1f, 0f, 1f);
+            Main.DrawSprite(Assets.circleWhite, EntKinect.handPos, 0f, Main.scale, 0f, 1f);
 
             base.Draw(gameTime);
         }

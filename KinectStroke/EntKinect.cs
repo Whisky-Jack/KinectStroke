@@ -37,7 +37,10 @@ namespace MeepEngine
         public static JointId handType = JointId.HandRight;
         public static Vector2 handPos = new Vector2();
 
-        
+        public static int colorWidth = 0;
+        public static int colorHeight = 0;
+
+
         public static void InitializeKinect()
         {
             // Find and initialize kinect
@@ -54,6 +57,9 @@ namespace MeepEngine
                 WiredSyncMode = WiredSyncMode.Standalone,
                 SynchronizedImagesOnly = true
             });
+
+            colorWidth = kinect.GetCalibration().ColorCameraCalibration.ResolutionWidth;
+            colorHeight = kinect.GetCalibration().ColorCameraCalibration.ResolutionHeight;
 
             // Initialize bodytracking
             bodytracker = Tracker.Create(kinect.GetCalibration(), new TrackerConfiguration()
@@ -119,7 +125,12 @@ namespace MeepEngine
                     {
                         Skeleton skeleton = frame.GetBodySkeleton(0);
                         var hand = skeleton.GetJoint(JointId.HandRight);
-                        handPos = new Vector2(((hand.Position.X + 1) / 2) * Main.roomWidth, ((-hand.Position.Y + 1) / 2) * Main.roomWidth);
+                        System.Numerics.Vector3 handPos3d = hand.Position;
+
+                        Calibration calibration = kinect.GetCalibration();
+                        System.Numerics.Vector2 handPos2d = (System.Numerics.Vector2)calibration.TransformTo2D(handPos3d, CalibrationDeviceType.Depth, CalibrationDeviceType.Color);
+
+                        handPos = new Vector2(handPos2d.X * ((float) Main.roomWidth / (float) colorWidth), handPos2d.Y * ((float) Main.roomHeight / (float) colorHeight));
                     }
                     catch
                     {

@@ -18,8 +18,9 @@ namespace MeepEngine
         public static SpriteBatch spriteBatch;
 
         // Room dimensions
-        public static int roomWidth = 640;
-        public static int roomHeight = 480;
+        public static int roomWidth = 800; // 640;
+        public static int roomHeight = 450; // 480;
+        public static float scale = (float)800 / (float)1280;
 
         // Instance creation/removal queue
         public static List<Entity> instanceCreationQueue = new List<Entity>();
