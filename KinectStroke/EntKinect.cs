@@ -130,7 +130,7 @@ namespace MeepEngine
                         Calibration calibration = kinect.GetCalibration();
                         System.Numerics.Vector2 handPos2d = (System.Numerics.Vector2)calibration.TransformTo2D(handPos3d, CalibrationDeviceType.Depth, CalibrationDeviceType.Color);
 
-                        handPos = new Vector2(handPos2d.X * ((float) Main.roomWidth / (float) colorWidth), handPos2d.Y * ((float) Main.roomHeight / (float) colorHeight));
+                        handPos = new Vector2(Main.roomWidth - handPos2d.X * ((float) Main.roomWidth / (float) colorWidth), handPos2d.Y * ((float) Main.roomHeight / (float) colorHeight));
                     }
                     catch
                     {

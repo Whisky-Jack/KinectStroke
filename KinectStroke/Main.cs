@@ -110,7 +110,7 @@ namespace MeepEngine
             instanceCreationQueue.Clear();
 
             // Update active room
-            EntKinect.AsyncUpdateKinect();
+            //EntKinect.AsyncUpdateKinect();
             activeRoom.Update(gameTime);
 
             // Remove queued instances
@@ -135,6 +135,7 @@ namespace MeepEngine
             GraphicsDevice.Clear(activeRoom.bgColor);
 
             // Draw active room
+            EntKinect.AsyncUpdateKinect();
             activeRoom.Draw(gameTime);
 
             spriteBatch.End();
@@ -288,6 +289,12 @@ namespace MeepEngine
         public static void DrawSprite(Texture2D sprite, Vector2 coords, float imageangle, float imagescale, float layer , float imagealpha)
         {
             spriteBatch.Draw(sprite, coords, null, Color.White * imagealpha, imageangle, new Vector2(sprite.Width / 2, sprite.Height / 2), imagescale, SpriteEffects.None, layer);
+        }
+
+        // Draw a sprite to the screen at a given location
+        public static void DrawSprite(Texture2D sprite, Vector2 coords, float imageangle, float imagescale, float layer, float imagealpha, SpriteEffects effects)
+        {
+            spriteBatch.Draw(sprite, coords, null, Color.White * imagealpha, imageangle, new Vector2(sprite.Width / 2, sprite.Height / 2), imagescale, effects, layer);
         }
 
         // Draw text to the screen at a given location
