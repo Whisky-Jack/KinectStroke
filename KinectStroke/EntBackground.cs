@@ -49,12 +49,15 @@ namespace MeepEngine
 
         public override void Draw(GameTime gameTime)
         {
+            // Wtf does this do
             index += scrollSpeed;
             if (index >= bgWidth)
                 index = 0;
 
+            //TODO: fix background
+            //Main.DrawSprite(Assets.sprBackground, new Vector2(Main.roomWidth / 2, Main.roomHeight / 2), 0f, 1f, 1f, 1f);
             Main.DrawSprite(Assets.sprBackground, new Vector2(Main.roomWidth / 2 - (float)Math.Floor(index), Main.roomHeight / 2), 0f, 1f, 1f, 1f);
-            Main.DrawSprite(Assets.sprBackground, new Vector2(Main.roomWidth / 2 + bgWidth + 1 - (float)Math.Floor(index), Main.roomHeight / 2), 0f, 1f, 1f, 1f);
+            //Main.DrawSprite(Assets.sprBackground, new Vector2(Main.roomWidth / 2 + bgWidth + 1 - (float)Math.Floor(index), Main.roomHeight / 2), 0f, 1f, 1f, 1f);
 
             base.Draw(gameTime);
         }

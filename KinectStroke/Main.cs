@@ -18,8 +18,8 @@ namespace MeepEngine
         public static SpriteBatch spriteBatch;
 
         // Room dimensions
-        public static int roomWidth = 800; // 640;
-        public static int roomHeight = 450; // 480;
+        public static int roomWidth = 800; // 640; // 800
+        public static int roomHeight = 450; // 480; // 450
         public static float scale = (float)800 / (float)1280;
 
         // Instance creation/removal queue
@@ -53,6 +53,7 @@ namespace MeepEngine
             // Set room dimensions
             graphics.PreferredBackBufferWidth = roomWidth;
             graphics.PreferredBackBufferHeight = roomHeight;
+            graphics.ApplyChanges();
 
             // Set full screen
             graphics.IsFullScreen = false;

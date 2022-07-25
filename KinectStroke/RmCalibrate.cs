@@ -53,6 +53,7 @@ namespace MeepEngine
 
         public override void RoomStart()
         {
+            // TODO: restore fullscreen
             Main.GameFullScreen();
 
             Main.InstanceCreate(new EntKinect(game, spriteBatch), Vector2.Zero);

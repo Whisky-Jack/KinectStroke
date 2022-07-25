@@ -42,6 +42,7 @@ namespace MeepEngine
 
         public override void RoomStart()
         {
+            // TODO: restore fullscreen
             Main.GameFullScreen();
 
             try
